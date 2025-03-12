@@ -1,0 +1,10 @@
+name: playground-mesonbuild-dev
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - vs2019
+  - vs
+  - flang=5
+  - numpy=2.2
+  - meson-python=0.17
