@@ -29,6 +29,8 @@ jobs:
         uses: conda-incubator/setup-miniconda@v3
         with:
           environment-file: environment-win.yml
+          conda-remove-defaults: true
+          channels: conda-forge
           activate-environment: playground-mesonbuild-dev
 
       - name: Build fib
