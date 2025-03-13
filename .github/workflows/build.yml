@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   build:
-    name: Wheel, ${{ matrix.os }}:${{ matrix.python }}
+    name: Wheel, ${{ matrix.os }}:python-${{ matrix.python }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: true
