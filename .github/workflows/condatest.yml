@@ -24,7 +24,7 @@ jobs:
           # so easier to separate out here.
           - [ubuntu-22.04, conda/environment-linux.yml, "bash -el {0}"]
           - [macos-13, conda/environment-macos.yml, "bash -el {0}"]
-          - [windows-2019, environment-win.yml, "cmd {0}"]
+          - [windows-2019, conda/environment-win.yml, "cmd {0}"]
     defaults:
       run:
         shell: ${{ matrix.buildplat[2] }}
