@@ -3,8 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - python=3.11
-  - vs2019_win-64
-  - vs_win-64
-  - flang=5
+  - gcc_linux64=14
+  - gfortran_linux-64=14
   - numpy=2.2
   - meson-python=0.17

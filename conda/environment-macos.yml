@@ -1,0 +1,9 @@
+name: playground-mesonbuild-dev
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - clang_osx-64=19
+  - gfortran_osx-64=12
+  - numpy=2.2
+  - meson-python=0.17

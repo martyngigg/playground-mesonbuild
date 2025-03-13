@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   build:
-    name: Wheel, ${{ matrix.buildplat[0] }}:python-${{ matrix.python[1] }}
+    name: Conda, ${{ matrix.buildplat[0] }}
     runs-on: ${{ matrix.buildplat[0] }}
     strategy:
       fail-fast: true
@@ -22,8 +22,8 @@ jobs:
           # should also be able to do multi-archs on a single entry, e.g.
           # [windows-2019, win*, "AMD64 x86"]. However, those two require a different compiler setup
           # so easier to separate out here.
-          # - [ubuntu-22.04, manylinux, x86_64, "", ""]
-          # - [macos-13, macosx, x86_64, openblas, "10.14"]
+          - [ubuntu-22.04, conda/environment-linux.yml]
+          - [macos-13, conda/environment-macos.yml]
           - [windows-2019, environment-win.yml]
 
     steps:
@@ -41,4 +41,5 @@ jobs:
 
       - name: Build f2py_examples
         run: |
-          pip install .
+          meson setup builddir
+          meson compile -C builddir
