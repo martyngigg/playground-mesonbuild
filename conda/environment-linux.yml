@@ -3,7 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - python=3.11
-  - gcc_linux64=14
+  - gcc_linux-64=14
   - gfortran_linux-64=14
   - numpy=2.2
   - meson-python=0.17
