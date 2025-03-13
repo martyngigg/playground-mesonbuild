@@ -23,19 +23,4 @@ incdir_f2py = run_command(py,
 
 inc_np = include_directories(incdir_numpy, incdir_f2py)
 
-
-gen_fwrappers = custom_target('gen-fwrappers',
-                        input: 'fib1.f',
-                        output: ['fibmodule.c', 'fib-f2pywrappers.f'],
-                        command: [py, '-m', 'numpy.f2py', '@INPUT@', '-m', 'fib'])
-
-py.extension_module('fib',
-  [
-    'fib1.f',
-    gen_fwrappers[0],
-  ],
-  incdir_f2py / 'fortranobject.c',
-  include_directories: inc_np,
-  dependencies : [py_dep],
-  install : true
-)
+subdir('src/f2py_examples')
