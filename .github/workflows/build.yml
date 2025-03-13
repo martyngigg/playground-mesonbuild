@@ -28,6 +28,7 @@ jobs:
       - name: Setup conda
         uses: conda-incubator/setup-miniconda@v3
         with:
+          miniforge-version: latest
           environment-file: environment-win.yml
           conda-remove-defaults: true
           channels: conda-forge
