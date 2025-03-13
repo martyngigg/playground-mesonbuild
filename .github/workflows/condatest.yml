@@ -25,6 +25,9 @@ jobs:
           - [ubuntu-22.04, conda/environment-linux.yml, "bash -el {0}"]
           - [macos-13, conda/environment-macos.yml, "bash -el {0}"]
           - [windows-2019, environment-win.yml, "cmd {0}"]
+    defaults:
+      run:
+        shell: ${{ matrix.buildplat[2] }}
 
     steps:
       - name: Checkout source
@@ -40,7 +43,6 @@ jobs:
           activate-environment: playground-mesonbuild-dev
 
       - name: Build f2py_examples
-        shell: ${{ buildplat[2] }}}
         run: |
           meson setup builddir
           meson compile -C builddir
