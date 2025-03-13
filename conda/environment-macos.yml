@@ -6,4 +6,5 @@ dependencies:
   - clang_osx-64=19
   - gfortran_osx-64=12
   - numpy=2.2
+  - meson=1.7.0
   - meson-python=0.17

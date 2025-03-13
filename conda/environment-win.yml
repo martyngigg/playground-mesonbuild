@@ -7,4 +7,5 @@ dependencies:
   - vs_win-64=2019
   - flang=19
   - numpy=2.2
+  - meson=1.7.0
   - meson-python=0.17
