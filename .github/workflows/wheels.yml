@@ -70,6 +70,11 @@ jobs:
           CIBW_BUILD: ${{ matrix.python[0] }}-${{ matrix.buildplat[1] }}*
           CIBW_ARCHS: ${{ matrix.buildplat[2] }}
 
+      - name: Install & Test
+        run: |
+          python -m pip install ./wheelhouse/f2py_examples-*-${{ matrix.python[0] }}*.whl
+          python -c 'import f2py_examples.fib as fib; import numpy as np; x = np.zeros(5); fib.fib(x, 5); print(x)'
+
       - uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
         with:
           path: ./wheelhouse/*.whl

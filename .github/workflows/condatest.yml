@@ -42,7 +42,10 @@ jobs:
           channels: conda-forge
           activate-environment: playground-mesonbuild-dev
 
-      - name: Build f2py_examples
+      - name: Build & install
         run: |
-          meson setup builddir
-          meson compile -C builddir
+          python -m pip -vvv install .
+
+      - name: Test
+        run: |
+          python -c 'import f2py_examples.fib as fib; import numpy as np; x = np.zeros(5); fib.fib(x, 5); print(x)'
