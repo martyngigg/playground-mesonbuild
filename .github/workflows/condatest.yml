@@ -22,9 +22,9 @@ jobs:
           # should also be able to do multi-archs on a single entry, e.g.
           # [windows-2019, win*, "AMD64 x86"]. However, those two require a different compiler setup
           # so easier to separate out here.
-          - [ubuntu-22.04, conda/environment-linux.yml]
-          - [macos-13, conda/environment-macos.yml]
-          - [windows-2019, environment-win.yml]
+          - [ubuntu-22.04, conda/environment-linux.yml, "bash -el {0}"]
+          - [macos-13, conda/environment-macos.yml, "bash -el {0}"]
+          - [windows-2019, environment-win.yml, "cmd {0}"]
 
     steps:
       - name: Checkout source
@@ -40,6 +40,7 @@ jobs:
           activate-environment: playground-mesonbuild-dev
 
       - name: Build f2py_examples
+        shell: ${{ buildplat[2] }}}
         run: |
           meson setup builddir
           meson compile -C builddir
