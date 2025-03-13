@@ -59,6 +59,11 @@ jobs:
           compiler: gcc
           version: 14
 
+      - name: macos - configure deployment target
+        if: ${{ runner.os == 'macOS' }}
+        run: |
+          echo "CIBW_ENVIRONMENT=MACOSX_DEPLOYMENT_TARGET=${{ matrix.buildplat[4] }}" >> "$GITHUB_ENV"
+
       - name: Build wheels
         uses: pypa/cibuildwheel@7940a4c0e76eb2030e473a5f864f291f63ee879b # v2.21.3
         env:
