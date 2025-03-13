@@ -1,0 +1,46 @@
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Wheel, ${{ matrix.buildplat[1] }} - {{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: ["windows-2019"]
+        python: ["3.11"]
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup conda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          environment-file: environment-win.yml
+          activate-environment: playground-mesonbuild-dev
+
+      - name: Build fib
+        run: |
+          meson setup . builddir
+          meson compile -C builddir
+
+      - name: List build files
+        run: |
+          dir builddir
+
+      - name: Test importing module
+        run: |
+          cd builddir
+          python -c 'import fib;import numpy as np; x = np.zeros(5); fib.fib(x, 5); print(x)'
