@@ -32,8 +32,9 @@ jobs:
         uses: actions/checkout@v4
 
       - uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
+        id: cpython
         with:
-          python-version: 3.11
+          python-version: ${{ matrix.python[1] }}
 
       - name: win_amd64 - install rtools (match scipy version)
         run: |
@@ -71,9 +72,10 @@ jobs:
           CIBW_ARCHS: ${{ matrix.buildplat[2] }}
 
       - name: Install & Test
+        shell: bash
         run: |
-          python -m pip install ./wheelhouse/f2py_examples-*-${{ matrix.python[0] }}*.whl
-          python -c 'import f2py_examples.fib as fib; import numpy as np; x = np.zeros(5); fib.fib(x, 5); print(x)'
+          ${{ steps.cpython.outputs.python-path }} -m pip install ./wheelhouse/f2py_examples-*-${{ matrix.python[0] }}*.whl
+          ${{ steps.cpython.outputs.python-path }} -c 'import f2py_examples.fib as fib; import numpy as np; x = np.zeros(5); fib.fib(x, 5); print(x)'
 
       - uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
         with:
